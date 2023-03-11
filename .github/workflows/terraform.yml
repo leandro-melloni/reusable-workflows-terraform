@@ -17,7 +17,7 @@ on:
         type: string
       terraform-cmd:
         required: false
-        default: 'init'
+        default: 'plan'
         description: 'The Terraform command to run (e.g. "plan", "apply", "destroy", etc.)'
         type: string
       terraform-args:
