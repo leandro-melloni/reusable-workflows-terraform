@@ -1,0 +1,78 @@
+name: Terraform Reusable Workflow
+
+permissions:
+  id-token: write
+  contents: read
+
+on:
+  workflow_call:
+    inputs:
+      technology:
+        description: 'The technology to deploy (e.g. IAC, Serverless, CodeDeploy, etc.)'
+        required: true
+        type: string
+      aws-function:
+        description: 'The AWS function to deploy (e.g. "EC2", "Lambda", "S3", Terraform, CloudFormation, etc.)'
+        required: true
+        type: string
+      terraform-cmd:
+        required: false
+        default: 'init'
+        description: 'The Terraform command to run (e.g. "plan", "apply", "destroy", etc.)'
+        type: string
+      terraform-args:
+        required: false
+        description: 'The Terraform arguments to pass to the command (e.g. "-var-file=terraform.tfvars")'
+        type: string
+    secrets:
+      aws_id:
+        description: 'AWS ID'
+        required: true
+      aws_role:
+        description: 'AWS Role'
+        required: true
+      ID_CLIENT_APP:
+        description: 'ID Client App'
+        required: true
+      ID_SECRET_APP:
+        description: 'ID Secret App'
+        required: true
+    
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    name: teste
+    steps:
+      - uses: actions/checkout@v3
+      - name: my-app-install token
+        id: my-app
+        uses: getsentry/action-github-app-token@v2
+        with:
+          app_id: ${{ secrets.ID_CLIENT_APP }}
+          private_key: ${{ secrets.ID_SECRET_APP }}
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1.7.0
+        with:
+          role-to-assume: arn:aws:iam::${{ secrets.aws_id }}:role/${{ secrets.aws_role }}
+          aws-region: us-east-1
+      - name: Install Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+      - name: Install Terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: 0.14.7
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          repository: leandro-melloni/deploy-aws
+          path: .github/actions/deploy-aws
+          token: ${{ steps.my-app.outputs.token }}
+      - name : Terraform
+        uses: ./.github/actions/deploy-aws
+        with:
+          technology: ${{ inputs.technology }}
+          aws-function: ${{ inputs.aws-function }}
+          terraform-cmd: ${{ inputs.terraform-cmd }}
+          terraform-args: ${{ inputs.terraform-args }}
