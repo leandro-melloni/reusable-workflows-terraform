@@ -58,7 +58,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
         with:
-          repository: leandro-melloni/deploy-aws
+          repository: leandro-melloni/exec-terraform
           path: .github/actions/exec-terraform
           token: ${{ steps.my-app.outputs.token }}
       - name : Terraform
