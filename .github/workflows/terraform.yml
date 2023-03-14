@@ -7,14 +7,6 @@ permissions:
 on:
   workflow_call:
     inputs:
-      technology:
-        description: 'The technology to deploy (e.g. IAC, Serverless, CodeDeploy, etc.)'
-        required: true
-        type: string
-      aws-function:
-        description: 'The AWS function to deploy (e.g. "EC2", "Lambda", "S3", Terraform, CloudFormation, etc.)'
-        required: true
-        type: string
       terraform-cmd:
         required: false
         default: 'plan'
@@ -72,7 +64,5 @@ jobs:
       - name : Terraform
         uses: ./.github/actions/exec-terraform
         with:
-          technology: ${{ inputs.technology }}
-          aws-function: ${{ inputs.aws-function }}
           terraform-cmd: ${{ inputs.terraform-cmd }}
           terraform-args: ${{ inputs.terraform-args }}
