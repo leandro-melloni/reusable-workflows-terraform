@@ -67,10 +67,10 @@ jobs:
         uses: actions/checkout@v3
         with:
           repository: leandro-melloni/deploy-aws
-          path: .github/actions/deploy-aws
+          path: .github/actions/exec-terraform
           token: ${{ steps.my-app.outputs.token }}
       - name : Terraform
-        uses: ./.github/actions/deploy-aws
+        uses: ./.github/actions/exec-terraform
         with:
           technology: ${{ inputs.technology }}
           aws-function: ${{ inputs.aws-function }}
