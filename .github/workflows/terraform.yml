@@ -43,7 +43,7 @@ jobs:
           app_id: ${{ secrets.ID_CLIENT_APP }}
           private_key: ${{ secrets.ID_SECRET_APP }}
       - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v1.7.0
+        uses: aws-actions/configure-aws-credentials@v2
         with:
           role-to-assume: arn:aws:iam::${{ secrets.aws_id }}:role/${{ secrets.aws_role }}
           aws-region: us-east-1
