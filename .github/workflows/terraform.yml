@@ -39,12 +39,12 @@ jobs:
     name: terraform
     steps:
       - uses: actions/checkout@v3
-      - name: my-app-install token
-        id: my-app
-        uses: getsentry/action-github-app-token@v2
-        with:
-          app_id: ${{ secrets.ID_CLIENT_APP }}
-          private_key: ${{ secrets.ID_SECRET_APP }}
+      #- name: my-app-install token
+      #  id: my-app
+      #  uses: getsentry/action-github-app-token@v2
+      #  with:
+      #    app_id: ${{ secrets.ID_CLIENT_APP }}
+      #    private_key: ${{ secrets.ID_SECRET_APP }}
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v2
         with:
@@ -58,16 +58,15 @@ jobs:
         uses: hashicorp/setup-terraform@v1
         with:
           terraform_version: 1.3
-      - name: Checkout
-        uses: actions/checkout@v3
-        with:
-          repository: leandro-melloni/exec-terraform
-          path: .github/actions/exec-terraform
-          ref: refs/heads/fix/init-args
-          token: ${{ steps.my-app.outputs.token }}
-      #- run: terraform init
+      #- name: Checkout
+      #  uses: actions/checkout@v3
+      #  with:
+      #    repository: leandro-melloni/exec-terraform
+      #    path: .github/actions/exec-terraform
+      #    ref: refs/heads/fix/init-args
+      #    token: ${{ steps.my-app.outputs.token }}
       - name : Terraform
-        uses: ./.github/actions/exec-terraform
+        uses: leandro-melloni/exec-terraform@v1
         with:
           terraform-cmd: ${{ inputs.terraform-cmd }}
           terraform-args: ${{ inputs.terraform-args }}
