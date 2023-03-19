@@ -16,6 +16,9 @@ on:
         required: false
         description: 'The Terraform arguments to pass to the command (e.g. "-var-file=terraform.tfvars")'
         type: string
+      terrarform-init-args:
+        required: false
+        type: string
     secrets:
       aws_id:
         description: 'AWS ID'
@@ -66,3 +69,4 @@ jobs:
         with:
           terraform-cmd: ${{ inputs.terraform-cmd }}
           terraform-args: ${{ inputs.terraform-args }}
+          terrarform-init-args: ${{ inputs.terrarform-init-args }}
