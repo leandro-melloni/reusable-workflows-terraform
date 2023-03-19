@@ -16,7 +16,7 @@ on:
         required: false
         description: 'The Terraform arguments to pass to the command (e.g. "-var-file=terraform.tfvars")'
         type: string
-      terrarform-init-args:
+      terraform-init-args:
         required: false
         type: string
     secrets:
@@ -71,4 +71,4 @@ jobs:
         with:
           terraform-cmd: ${{ inputs.terraform-cmd }}
           terraform-args: ${{ inputs.terraform-args }}
-          terrarform-init-args: ${{ inputs.terrarform-init-args }}
+          terraform-init-args: ${{ inputs.terraform-init-args }}
