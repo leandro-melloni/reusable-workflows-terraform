@@ -66,6 +66,7 @@ jobs:
           repository: leandro-melloni/exec-terraform
           path: .github/actions/exec-terraform
           token: ${{ steps.my-app.outputs.token }}
+      - run: terraform init
       - name : Terraform
         uses: ./.github/actions/exec-terraform
         with:
