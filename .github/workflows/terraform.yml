@@ -16,9 +16,11 @@ on:
         required: false
         description: 'The Terraform arguments to pass to the command (e.g. "-var-file=terraform.tfvars")'
         type: string
+        default: '-var-file=terraform.tfvars'
       terraform-init-args:
         required: false
         type: string
+        default: '-input=false'
     secrets:
       aws_id:
         description: 'AWS ID'
