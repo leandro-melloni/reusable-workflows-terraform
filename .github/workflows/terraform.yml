@@ -58,6 +58,8 @@ jobs:
         uses: hashicorp/setup-terraform@v1
         with:
           terraform_version: 1.3
+      - name: Add Log Trace
+        run: export TF_LOG=TRACE
       - name: Checkout
         uses: actions/checkout@v3
         with:
